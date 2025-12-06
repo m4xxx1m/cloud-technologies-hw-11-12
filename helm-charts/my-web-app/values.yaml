@@ -1,0 +1,28 @@
+frontend:
+  replicaCount: 3
+  image:
+    repository: nginx
+    tag: "latest"
+  service:
+    port: 80
+
+backend:
+  replicaCount: 2
+  image:
+    repository: digitalocean/flask-helloworld
+    tag: "latest"
+  service:
+    port: 5000
+  livenessProbe:
+    path: /
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  readinessProbe:
+    path: /
+    initialDelaySeconds: 5
+    periodSeconds: 10
+
+ingress:
+  enabled: true
+  className: "nginx"
+  host: ""
